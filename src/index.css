@@ -1,35 +1,64 @@
-:root {
-  --color-darkest: #343a40;
-  --color-dark: #495057;
-  --color-medium: #ced4da;
-  --color-light: #f1f3f5;
+/**
+ * React Quiz Application Stylesheet
+ *
+ * Structure:
+ * 1. CSS Variables (Design Tokens)
+ * 2. Global Reset & Base Styles
+ * 3. Layout Components
+ * 4. UI Components
+ * 5. Quiz-Specific Components
+ * 6. Question Panel Navigation
+ * 7. Animations
+ * 8. Responsive Design
+ * 9. Dark Mode Support
+ */
 
-  --color-theme: #1098ad;
-  --color-accent: #ffa94d;
+/* ========================================
+   1. CSS VARIABLES / DESIGN TOKENS
+   ======================================== */
+:root {
+  /* Color palette - Grayscale */
+  --color-darkest: #343a40;  /* Main background */
+  --color-dark: #495057;      /* Secondary backgrounds, borders */
+  --color-medium: #ced4da;    /* Text, progress bars */
+  --color-light: #f1f3f5;     /* Primary text color */
+
+  /* Brand colors */
+  --color-theme: #1098ad;     /* Primary theme color - correct answers */
+  --color-accent: #ffa94d;    /* Accent color - wrong answers */
 }
 
+/* Google Fonts import for decorative header font */
 @import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
 
+/* ========================================
+   2. GLOBAL RESET & BASE STYLES
+   ======================================== */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Include padding and border in element's total width/height */
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; /* Sets 1rem = 10px for easier calculations (default 16px * 0.625 = 10px) */
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* System font stack */
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100vh; /* Full viewport height minimum */
   color: var(--color-light);
   background-color: var(--color-darkest);
   padding: 3.2rem;
 }
 
+/* ========================================
+   3. LAYOUT COMPONENTS
+   ======================================== */
+
+/* Main app container - centers content vertically and horizontally */
 .app {
   display: flex;
   flex-direction: column;
@@ -37,10 +66,12 @@ body {
   justify-content: center;
 }
 
+/* Main content wrapper - fixed width for consistency */
 .main {
   width: 50rem;
 }
 
+/* App header with logo and title */
 .app-header {
   width: 66rem;
   margin-bottom: 4rem;
@@ -49,21 +80,28 @@ body {
   justify-content: space-between;
 }
 
+/* ========================================
+   4. UI COMPONENTS
+   ======================================== */
+
+/* Error message styling */
 .error {
   text-align: center;
   font-size: 1.6rem;
   font-weight: 500;
   padding: 2rem;
   background-color: #495057;
-  border-radius: 100px;
+  border-radius: 100px; /* Pill shape */
 }
 
+/* Logo image sizing */
 img {
   width: 14rem;
 }
 
+/* Typography hierarchy */
 h1 {
-  font-family: "Codystar";
+  font-family: "Codystar"; /* Decorative font for main title */
   font-size: 5.6rem;
 }
 
@@ -84,38 +122,49 @@ h4 {
   margin-bottom: 2.4rem;
 }
 
+/* ========================================
+   5. QUIZ-SPECIFIC COMPONENTS
+   ======================================== */
+
+/* Start screen layout */
 .start {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Progress bar container with question count and score */
 .progress {
   margin-bottom: 4rem;
   display: grid;
   justify-content: space-between;
   gap: 1.2rem;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto; /* Two columns for question/score */
   font-size: 1.8rem;
   color: var(--color-medium);
 }
 
+/* HTML5 progress element styling */
 progress {
-  -webkit-appearance: none;
+  -webkit-appearance: none; /* Remove default styling */
   width: 100%;
   height: 12px;
-  grid-column: 1 / -1;
+  grid-column: 1 / -1; /* Span full width of grid */
 }
 
+/* Webkit browsers progress bar background */
 ::-webkit-progress-bar {
   background-color: var(--color-medium);
   border-radius: 100px;
 }
+
+/* Webkit browsers progress bar fill */
 ::-webkit-progress-value {
   background-color: var(--color-theme);
   border-radius: 100px;
 }
 
+/* Base button styles */
 .btn {
   display: block;
   font-family: inherit;
@@ -125,26 +174,31 @@ progress {
   background-color: var(--color-dark);
   padding: 1.2rem 2.4rem;
   cursor: pointer;
-  border-radius: 100px;
-  transition: 0.3s;
+  border-radius: 100px; /* Pill shape */
+  transition: 0.3s; /* Smooth hover effects */
 }
 
+/* Button hover state - darker background */
 .btn:not([disabled]):hover {
   background-color: var(--color-darkest);
 }
 
+/* Answer option hover - slide right effect */
 .btn-option:not([disabled]):hover {
   transform: translateX(1.2rem);
 }
 
+/* Disabled button cursor */
 .btn[disabled]:hover {
   cursor: not-allowed;
 }
 
+/* UI button positioning (Next/Finish buttons) */
 .btn-ui {
   float: right;
 }
 
+/* Answer options container */
 .options {
   display: flex;
   flex-direction: column;
@@ -152,26 +206,32 @@ progress {
   margin-bottom: 3.2rem;
 }
 
+/* Answer option button - full width, left-aligned text */
 .btn-option {
   width: 100%;
   text-align: left;
 }
 
+/* Correct answer styling */
 .btn-option.correct {
   background-color: var(--color-theme);
   border: 2px solid var(--color-theme);
   color: var(--color-light);
 }
+
+/* Wrong answer styling */
 .btn-option.wrong {
   background-color: var(--color-accent);
   border: 2px solid var(--color-accent);
   color: var(--color-darkest);
 }
 
+/* Selected answer - shift right to indicate selection */
 .answer {
   transform: translateX(2rem);
 }
 
+/* Quiz result display */
 .result {
   background-color: var(--color-theme);
   color: var(--color-light);
@@ -183,28 +243,31 @@ progress {
   margin-bottom: 1.6rem;
 }
 
+/* Emoji in result */
 .result span {
   font-size: 2.2rem;
   margin-right: 4px;
 }
 
+/* High score display */
 .highscore {
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 4.8rem;
 }
 
+/* Loading state container */
 .loader-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 4rem;
   gap: 1.6rem;
-
   color: var(--color-medium);
   font-size: 1.4rem;
 }
 
+/* Timer display - styled like a button but non-interactive */
 .timer {
   float: left;
   font-size: 1.8rem;
@@ -214,10 +277,16 @@ progress {
   border-radius: 100px;
 }
 
+/* ========================================
+   6. LOADING ANIMATION
+   ======================================== */
+
+/* Three-dot loading animation */
 /* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
 .loader {
   width: 50px;
   height: 24px;
+  /* Creates three circles using radial gradients */
   background:
     radial-gradient(circle closest-side, currentColor 90%, #0000) 0% 50%,
     radial-gradient(circle closest-side, currentColor 90%, #0000) 50% 50%,
@@ -227,35 +296,37 @@ progress {
   animation: loader 1s infinite linear;
 }
 
+/* Keyframes for bouncing dot animation */
 @keyframes loader {
   20% {
     background-position:
-      0% 0%,
-      50% 50%,
-      100% 50%;
+      0% 0%,    /* First dot up */
+      50% 50%,  /* Second dot center */
+      100% 50%; /* Third dot center */
   }
   40% {
     background-position:
-      0% 100%,
-      50% 0%,
-      100% 50%;
+      0% 100%,  /* First dot down */
+      50% 0%,   /* Second dot up */
+      100% 50%; /* Third dot center */
   }
   60% {
     background-position:
-      0% 50%,
-      50% 100%,
-      100% 0%;
+      0% 50%,   /* First dot center */
+      50% 100%, /* Second dot down */
+      100% 0%;  /* Third dot up */
   }
   80% {
     background-position:
-      0% 50%,
-      50% 50%,
-      100% 100%;
+      0% 50%,   /* First dot center */
+      50% 50%,  /* Second dot center */
+      100% 100%; /* Third dot down */
   }
 }
 
-/* ********** */
-/* First counter example */
+/* ========================================
+   7. COUNTER EXAMPLE (Demo/Test Component)
+   ======================================== */
 .counter {
   display: flex;
   flex-direction: column;
@@ -271,33 +342,37 @@ progress {
   padding: 0.8rem;
 }
 
+/* ========================================
+   8. QUESTION PANEL NAVIGATION
+   ======================================== */
 
-/*Question Panel Style*/
+/* Floating toggle button - fixed to right edge of screen */
 .panel-toggle-btn {
   position: fixed;
   top: 50%;
   right: 0;
-  transform: translateY(-50%);
+  transform: translateY(-50%); /* Center vertically */
   background: #1f2937;
   color: white;
   border: none;
   padding: 12px 8px;
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px 0 0 8px; /* Rounded left corners only */
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  writing-mode: vertical-lr;
+  writing-mode: vertical-lr; /* Vertical text orientation */
   text-orientation: mixed;
-  z-index: 1000;
+  z-index: 1000; /* Above other content */
   transition: all 0.3s ease;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .panel-toggle-btn:hover {
   background: #374151;
-  transform: translateY(-50%) translateX(-2px);
+  transform: translateY(-50%) translateX(-2px); /* Slight left movement on hover */
 }
 
+/* Sliding panel container */
 .question-panel {
   position: fixed;
   top: 0;
@@ -305,17 +380,19 @@ progress {
   height: 100vh;
   width: 300px;
   background: white;
-  transform: translateX(100%);
+  transform: translateX(100%); /* Hidden off-screen by default */
   transition: transform 0.3s ease;
   z-index: 999;
   display: flex;
   flex-direction: column;
 }
 
+/* Panel visible state */
 .question-panel.open {
-  transform: translateX(0);
+  transform: translateX(0); /* Slide into view */
 }
 
+/* Panel header with title and close button */
 .panel-header {
   display: flex;
   justify-content: space-between;
@@ -330,6 +407,7 @@ progress {
   font-size: 18px;
 }
 
+/* Close button (X) styling */
 .panel-close-btn {
   background: none;
   border: none;
@@ -348,20 +426,23 @@ progress {
   color: #374151;
 }
 
+/* Panel body with scrollable content */
 .panel-content {
   padding: 20px;
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; /* Take remaining height */
+  overflow-y: auto; /* Scroll if content overflows */
   background-color: var(--color-darkest);
 }
 
+/* Grid of question navigation buttons */
 .question-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
   gap: 8px;
   margin-bottom: 24px;
 }
 
+/* Individual question navigation button */
 .question-nav-btn {
   width: 40px;
   height: 40px;
@@ -379,17 +460,19 @@ progress {
 
 .question-nav-btn:hover {
   border-color: #3b82f6;
-  transform: scale(1.05);
+  transform: scale(1.05); /* Slight zoom on hover */
 }
 
+/* Current question highlight */
 .question-nav-btn.current {
-  background: #3b82f6;
+  background: #3b82f6; /* Blue */
   color: white;
   border-color: #3b82f6;
 }
 
+/* Answered question styling */
 .question-nav-btn.answered {
-  background: #10b981;
+  background: #10b981; /* Green */
   color: white;
   border-color: #10b981;
 }
@@ -398,22 +481,26 @@ progress {
   border-color: #059669;
 }
 
+/* Unanswered question styling */
 .question-nav-btn.unanswered {
   color: var(--color-medium);
   border: 2px solid var(--color-dark);
   background: var(--color-darkest);
 }
 
+/* Current question that's also answered */
 .question-nav-btn.current.answered {
-  background: #059669;
+  background: #059669; /* Darker green */
   border-color: #059669;
 }
 
+/* Statistics section at bottom of panel */
 .panel-stats {
   border-top: 1px solid #e5e7eb;
   padding-top: 16px;
 }
 
+/* Individual stat row */
 .stat {
   display: flex;
   justify-content: space-between;
@@ -432,16 +519,23 @@ progress {
   font-size: 15px;
 }
 
+/* Hidden by default, shown on mobile when panel is open */
 .panel-overlay {
   display: none;
 }
 
-/* Mobile Responsive */
+/* ========================================
+   9. RESPONSIVE DESIGN
+   ======================================== */
+
+/* Mobile/Tablet breakpoint */
 @media (max-width: 768px) {
+  /* Full-width panel on mobile */
   .question-panel {
     width: 100%;
   }
 
+  /* Semi-transparent backdrop when panel is open */
   .panel-overlay {
     display: block;
     position: fixed;
@@ -450,33 +544,39 @@ progress {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
+    z-index: 998; /* Below panel, above content */
   }
 
+  /* Horizontal toggle button on mobile */
   .panel-toggle-btn {
-    writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb; /* Reset to horizontal text */
     text-orientation: initial;
     top: 10px;
     right: 10px;
-    transform: none;
-    border-radius: 8px;
+    transform: none; /* Remove centering transform */
+    border-radius: 8px; /* All corners rounded */
     padding: 8px 12px;
   }
 
+  /* Fewer columns in question grid for smaller screens */
   .question-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Dark mode support */
+/* ========================================
+   10. DARK MODE SUPPORT
+   ======================================== */
+
+/* System dark mode preference */
 @media (prefers-color-scheme: dark) {
+  /* Dark panel background */
   .question-panel {
     background: #1f2937;
     border-left-color: #374151;
   }
 
   .panel-header {
-    /*background: #111827;*/
     border-bottom-color: #374151;
   }
 
@@ -484,23 +584,6 @@ progress {
     color: #f9fafb;
   }
 
-  /*.question-nav-btn {*/
-  /*  background: #374151;*/
-  /*  border-color: #4b5563;*/
-  /*  color: #f9fafb;*/
-  /*}*/
-
-  /*.question-nav-btn.unanswered {*/
-  /*  background: #451a03;*/
-  /*  border-color: #f59e0b;*/
-  /*  color: #fbbf24;*/
-  /*}*/
-
-/*  .stat-label {*/
-/*    color: #9ca3af;*/
-/*  }*/
-
-/*  .stat-value {*/
-/*    color: #f9fafb;*/
-/*  }*/
+  /* Note: Several dark mode styles are commented out,
+     suggesting the app already has a dark theme by default */
 }

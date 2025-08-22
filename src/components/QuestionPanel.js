@@ -1,5 +1,17 @@
 import { useState } from "react";
 
+/**
+ * QuestionPanel component - Sidebar navigation panel for jumping between questions
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.numQuestions - Total number of questions
+ * @param {number} props.currentIndex - Index of current question
+ * @param {Function} props.dispatch - Redux-style dispatch function
+ * @param {Set} props.answeredQuestions - Set of indices for answered questions
+ * @param {boolean} props.isOpen - Panel open/closed state
+ * @param {Function} props.onToggle - Callback to toggle panel visibility
+ * @returns {JSX.Element} Collapsible panel with question navigation grid
+ */
 export default function QuestionPanel({
   numQuestions,
   currentIndex,
@@ -10,7 +22,7 @@ export default function QuestionPanel({
 }) {
   return (
     <>
-      {/* Toggle Button */}
+      {/* Toggle Button - Always visible for opening/closing panel */}
       <button
         className="panel-toggle-btn"
         onClick={onToggle}
@@ -19,7 +31,7 @@ export default function QuestionPanel({
         {isOpen ? "← Hide Panel" : "Show Panel →"}
       </button>
 
-      {/* Panel */}
+      {/* Main Panel - Slides in/out based on isOpen state */}
       <div className={`question-panel ${isOpen ? "open" : "closed"}`}>
         <div className="panel-header">
           <h3>Questions ({numQuestions})</h3>
@@ -29,6 +41,7 @@ export default function QuestionPanel({
         </div>
 
         <div className="panel-content">
+          {/* Grid of numbered buttons for each question */}
           <div className="question-grid">
             {Array.from({ length: numQuestions }, (_, index) => {
               const questionNumber = index + 1;
@@ -44,7 +57,9 @@ export default function QuestionPanel({
                   onClick={() =>
                     dispatch({ type: "jumpToQuestion", payload: index })
                   }
-                  title={`Jump to Question ${questionNumber} ${isAnswered ? "(Answered)" : "(Not Answered)"}`}
+                  title={`Jump to Question ${questionNumber} ${
+                    isAnswered ? "(Answered)" : "(Not Answered)"
+                  }`}
                 >
                   {questionNumber}
                 </button>
@@ -52,6 +67,7 @@ export default function QuestionPanel({
             })}
           </div>
 
+          {/* Statistics display */}
           <div className="panel-stats">
             <div className="stat">
               <span className="stat-label">Answered:</span>
@@ -69,7 +85,7 @@ export default function QuestionPanel({
         </div>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Semi-transparent overlay for mobile - closes panel when clicked */}
       {isOpen && <div className="panel-overlay" onClick={onToggle}></div>}
     </>
   );
